@@ -1,0 +1,15 @@
+﻿@page
+@model MyWebApplication.Pages.CalculatorModel
+@{
+
+}
+
+<form method="get" action="/Calculator">
+    <input type="text" placeholder="Enter expression..." id="expr" name="expr"/>
+    <input type="submit" value="Calculate" id="evaluate"/>
+</form>
+
+@if (ViewData.ContainsKey("CalcResult"))
+{
+    <div>Result: @ViewData["CalcResult"]</div>
+}
