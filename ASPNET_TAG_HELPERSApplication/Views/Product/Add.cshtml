@@ -1,0 +1,10 @@
+﻿@model Product
+
+@using (Html.BeginForm())
+{
+    @Html.TextBoxFor(m => m.Name, new {
+        @class = "white",
+    })
+    @Html.TextBoxFor(m => m.Quantity)
+    <input type="submit" value="Add" />
+}

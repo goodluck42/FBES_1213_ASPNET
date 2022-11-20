@@ -1,0 +1,8 @@
+﻿@using ASPNET_HTML_HELPERSApplication.HtmlHelpers;
+@model IEnumerable<Product>
+
+@await Html.PartialAsync("Partial/ProductNavigation")
+
+@Html.RenderProducts(Model)
+
+<products product-list="Model" product-count="Model.Count()" />

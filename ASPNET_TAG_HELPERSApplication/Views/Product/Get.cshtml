@@ -1,0 +1,11 @@
+﻿@model Product?
+
+
+@if (Model == null)
+{
+    <div>Incorrect id!</div>
+}
+else
+{
+    <div>@Model.Name@@[@Model.Quantity]</div>
+}
