@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Routing.Constraints;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -22,22 +20,14 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-//app.MapControllerRoute(
-//	name: "default",
-//	pattern: "{controller=Home}/{action=Index}/{id?}",
-//	constraints: new {
-//		id = new IntRouteConstraint()
-//	});
+app.MapControllerRoute(
+	name: "default",
+	pattern: "{controller=Home}/{action=Index}"
+);
 
-//app.MapControllerRoute(
-//	name: "default2",
-//	pattern: "Home/{action=Index}",
-//	constraints: new {
-//		id = new IntRouteConstraint()
-//	});
-
-//app.MapControllerRoute(
-//	name: "default",
-//	pattern: "Route/{action=Index}/{id?}");
+app.MapControllerRoute(
+	name: "default2",
+	pattern: "{controller=Home}/{action=Index}"
+);
 
 app.Run();

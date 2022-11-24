@@ -8,7 +8,7 @@ namespace RoutingApplication.Controllers
 	public class RouteController : Controller
 	{
 		[Route("main")]
-		public string Index()
+		public string Index() // localhost:1337/user/main
 		{
 			return $"user/main";
 		}

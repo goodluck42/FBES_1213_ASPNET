@@ -13,9 +13,9 @@ namespace ASPNET_HTML_HELPERSApplication.Services
 
 		public DbSet<Product> Products { get; set; }
 
-		//protected override void OnModelCreating(ModelBuilder modelBuilder)
-		//{
-			
-		//}
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			modelBuilder.Entity<Product>().HasData(new Product[1] { new Product() });
+		}
 	}
 }

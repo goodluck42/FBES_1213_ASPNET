@@ -1,0 +1,28 @@
+﻿@using TagHelpersApplication.Controllers
+@model Product
+
+@{
+    ViewData["Title"] = "Privacy Policy";
+}
+<h1>@ViewData["Title"]</h1>
+
+<a asp-action="Index" asp-controller="Home">Index</a>
+@for (int i = 0; i < 10; i++)
+{
+    <div data-id="@i"></div>
+}
+<form asp-action="Index" asp-controller="Home" asp-route-name="@Model.Name" asp-route-id="@Model.Id" method="post">
+    <input type="submit" value="Index/Home" />
+</form>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<form asp-action="Index" asp-controller="Home" method="post" asp-all-route-data="@(new Dictionary<string, string>() {
+    {"id", Model.Id.ToString()},
+    {"name", Model.Name!}
+})">
+    <input type="submit" value="Index/Home" />
+</form>
