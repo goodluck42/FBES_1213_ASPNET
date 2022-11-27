@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - AreaWebApplication</title>
+</head>
+<body>
+    <header>
+        <ul>
+            <li>
+                <a asp-action="Index" asp-controller="Main" asp-area="Student">Mainpage</a>
+            </li>
+            <li>
+                <a asp-action="Info" asp-controller="Main" asp-area="Student">StudentInfo</a>
+            </li>
+        </ul>
+    </header>
+    <main>
+        @RenderBody()
+    </main>
+    <footer>
+        
+    </footer>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

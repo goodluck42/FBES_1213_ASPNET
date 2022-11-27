@@ -53,10 +53,6 @@ namespace TagHelpersApplication.Controllers
 		 * id: @js
 		 * })
 		 */
-		public void Delete(int id)
-		{
-			service.Delete(id);
-		}
 
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 		public IActionResult Error()
