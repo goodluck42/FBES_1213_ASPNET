@@ -1,0 +1,15 @@
+﻿@model List<Car>
+@section Scripts
+{
+    <script src="~/js/home-index.js"></script>
+}
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center" id="car-list">
+   @foreach (var item in Model)
+   {
+       <div data-id="@item.Id">@item.Model @item.Price @item.Speed</div>
+   }
+</div>
