@@ -18,6 +18,8 @@
 
 		public async Task Invoke(HttpContext httpContext)
 		{
+			httpContext.Items.Add("Data", "123");
+
 			_streamWriter.WriteLine(httpContext.Request.Path.ToString());
 
 			await _next(httpContext);
