@@ -1,0 +1,12 @@
+﻿@using WebApiLibrary;
+@model IEnumerable<User>
+
+
+@foreach (var user in Model)
+{
+    <div>
+        <div>Id: @user.Id</div>
+        <div>FirstName: @user.FirstName</div>
+        <div>CreationDate: @user.CreationDate</div>
+    </div>
+}

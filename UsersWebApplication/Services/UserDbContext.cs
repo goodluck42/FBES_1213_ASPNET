@@ -2,7 +2,7 @@
 
 using Microsoft.EntityFrameworkCore;
 
-using UsersWebApplication.Models;
+using WebApiLibrary;
 
 namespace UsersWebApplication.Services
 {

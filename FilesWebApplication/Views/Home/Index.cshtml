@@ -1,0 +1,29 @@
+﻿@using WebApiLibrary;
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@section Scripts
+{
+    <script src="~/js/download-file.js"></script>
+}
+
+<div>
+    <form id="download-form" asp-action="DownloadFile" asp-controller="Home" method="get">
+        <input type="text" id="fileName" name="fileName" />
+        <input type="submit" value="DownloadFile" />
+    </form>
+</div>
+
+
+
+<div id="upload-container">
+    <input type="file" multiple />
+    <input type="button" value="Upload files"/>
+</div>
+
+<div id="ajax-upload-container">
+    <input type="text" placeholder="Filename..."/>
+    <input type="button" value="Ajax file download" />
+</div>

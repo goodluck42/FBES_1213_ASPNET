@@ -1,4 +1,4 @@
-﻿namespace UsersWebApplication.Models
+﻿namespace WebApiLibrary
 {
     public class User
     {

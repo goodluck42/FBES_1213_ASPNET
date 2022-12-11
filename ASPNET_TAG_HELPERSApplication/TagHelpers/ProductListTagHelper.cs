@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
+using System.Text.Encodings.Web;
+
 namespace ASPNET_HTML_HELPERSApplication.TagHelpers
 {
 	[HtmlTargetElement("products", Attributes = "product-list, product-count", TagStructure = TagStructure.NormalOrSelfClosing)]
@@ -18,6 +20,7 @@ namespace ASPNET_HTML_HELPERSApplication.TagHelpers
 		public override void Process(TagHelperContext context, TagHelperOutput output)
 		{
 			output.TagName = "ul";
+			output.AddClass("test", HtmlEncoder.Default);
 
 			if (Products == null)
 			{

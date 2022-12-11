@@ -1,14 +1,15 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-using UsersWebApplication.Models;
+using WebApiLibrary;
 using UsersWebApplication.Services;
+using Microsoft.AspNetCore.Cors;
 
 namespace UsersWebApplication.Controllers.Version1
 {
     [ApiController]
     [Route("api/v1/{controller}/{action}")]
+    [EnableCors]
     public class UserController : ControllerBase
     {
         private readonly UserDbContext _userDbContext;
@@ -38,14 +39,25 @@ namespace UsersWebApplication.Controllers.Version1
                 return new HttpResponseMessage()
                 {
                     StatusCode = System.Net.HttpStatusCode.BadRequest,
+                    Content = JsonContent.Create(new
+                    {
+                        Success = false,
+                        Message = "Failed to create user"
+                    })
                 };
             }
 
             await _userDbContext.Users.AddAsync(user);
+            await _userDbContext.SaveChangesAsync();
 
             return new HttpResponseMessage()
             {
-                StatusCode = System.Net.HttpStatusCode.OK
+                StatusCode = System.Net.HttpStatusCode.OK,
+                Content = JsonContent.Create(new
+                {
+                    Success = true,
+                    Message = "User created"
+                })
             };
         }
     }
