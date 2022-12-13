@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Cors;
 namespace UsersWebApplication.Controllers.Version1
 {
     [ApiController]
-    [Route("api/v1/{controller}/{action}")]
+    [Route("api/v1/user")]
     [EnableCors]
     public class UserController : ControllerBase
     {
@@ -25,9 +25,27 @@ namespace UsersWebApplication.Controllers.Version1
             return await _userDbContext.Users.SingleOrDefaultAsync(u => u.Id == id);
         }
         
-        [HttpGet]
+        [HttpGet("name/{name}")]
+        public async Task<User?> Get(string name)
+        {
+            return await _userDbContext.Users.SingleOrDefaultAsync(u => u.FirstName == name);
+        }
+        // api/v1/user/all
+        [HttpGet("all")]
         public async Task<IEnumerable<User>> Get()
         {
+            //var tokenGenerator = new UserTokengenerator();
+
+            //HttpContext.Response.Cookies.Append("user_token", tokenGenerator.Generate());
+
+            //foreach (var cookie in HttpContext.Request.Cookies)
+            //{
+            //    if (cookie.Value == "user_token")
+            //    {
+                    
+            //    }
+            //}
+
             return await _userDbContext.Users.ToListAsync();
         }
 
