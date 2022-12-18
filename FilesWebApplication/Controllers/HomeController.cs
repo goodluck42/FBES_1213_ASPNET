@@ -1,4 +1,5 @@
 ﻿using FilesWebApplication.Models;
+using FilesWebApplication.Services;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,7 +15,7 @@ namespace FilesWebApplication.Controllers
     public class HomeController : Controller
     {
         private const string c_FilesFolder = "Files";
-
+        private static TokenGenerator tokenGenerator = new();
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
@@ -40,6 +41,9 @@ namespace FilesWebApplication.Controllers
 
         public IActionResult Index()
         {
+
+            HttpContext.Response.Cookies.Append("my_super_token", "1337");
+
             return View();
         }
 
@@ -50,8 +54,26 @@ namespace FilesWebApplication.Controllers
 
         public IActionResult Privacy()
         {
+
+            if (HttpContext.Request.Cookies.TryGetValue("my_super_token", out string result))
+            {
+
+            }
+
             return View();
         }
+
+        //[HttpPost]
+        //public IActionResult Login(User user)
+        //{
+        //    var token = tokenGenerator.GenerateToken(id);
+
+
+
+            
+        //}
+
+
 
         public async Task<IActionResult> UserList()
         {
