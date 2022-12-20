@@ -17,14 +17,17 @@ namespace AuthWebApplication.Controllers
     public class HomeController : Controller
     {
         private readonly AppDbContext _dbContext;
+        private readonly IUserClaimGenerator _userClaimGenerator;
 
-        public HomeController(AppDbContext dbContext)
+        public HomeController(AppDbContext dbContext, IUserClaimGenerator userClaimGenerator)
         {
             _dbContext = dbContext;
+            _userClaimGenerator = userClaimGenerator;
         }
 
         [HttpGet]
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> SignUp(string? returnUrl, [FromForm] User? user)
         {
             var userIdentity = HttpContext.User.Identity;
@@ -49,8 +52,6 @@ namespace AuthWebApplication.Controllers
                 await _dbContext.Users.AddAsync(user);
                 await _dbContext.SaveChangesAsync();
 
-
-
                 return Redirect(returnUrl ?? "/");
             }
             catch
@@ -61,6 +62,7 @@ namespace AuthWebApplication.Controllers
 
         [HttpGet]
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> SignIn([FromForm] User? user)
         {
             var userIdentity = HttpContext.User.Identity;
@@ -89,12 +91,10 @@ namespace AuthWebApplication.Controllers
                 {
                     return Unauthorized();
                 }
+                // CBAC
+                // Claim based access control
 
-                var claim = new Claim(foundUser.Email!, foundUser.Password!);
-
-                var claimsIdentity = new ClaimsIdentity(new Claim[1] { claim }, CookieAuthenticationDefaults.AuthenticationScheme);
-
-                await HttpContext.SignInAsync(new ClaimsPrincipal(claimsIdentity));
+                await HttpContext.SignInAsync(_userClaimGenerator.GeneratePrincipal(foundUser));
 
                 return RedirectToAction("Index");
             }
@@ -112,6 +112,7 @@ namespace AuthWebApplication.Controllers
 
             return RedirectToAction("Index");
         }
+
 
         public IActionResult Index()
         {
@@ -140,8 +141,19 @@ namespace AuthWebApplication.Controllers
             return View(model: builder.ToString());
         }
 
-        [Authorize]
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        [Authorize(Policy = "AdminOnly")]
+        public IActionResult AdminPanel()
+        {
+            return View();
+        }
+
+        [Authorize(Policy = "MaxAge18")]
+        public IActionResult SecretPage()
         {
             return View();
         }
@@ -150,6 +162,11 @@ namespace AuthWebApplication.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult NoAccess()
+        {
+            return View();
         }
     }
 }

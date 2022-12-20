@@ -18,5 +18,7 @@ namespace AuthWebApplication.Models
 
         [MinLength(8)]
         public string? Password { get; set; }
+
+        public string? Role { get; set; }
     }
 }

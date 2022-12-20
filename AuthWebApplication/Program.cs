@@ -1,11 +1,17 @@
+using AuthWebApplication.Requirements;
 using AuthWebApplication.Services;
 
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddTransient<IAuthorizationHandler, AgeHandler>();
+builder.Services.AddTransient<IUserClaimGenerator, UserClaimGenerator>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
@@ -15,9 +21,21 @@ builder.Services.AddAuthentication().AddCookie(CookieAuthenticationDefaults.Auth
 {
     options.LoginPath = "/Home/SignUp";
     options.LogoutPath = "/Home/SignOut";
-    options.AccessDeniedPath = "/Home/Error";
+    options.AccessDeniedPath = "/Home/NoAccess";
 });
-builder.Services.AddAuthorization();
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("MaxAge18", policy =>
+    {
+        policy.Requirements.Add(new AgeRequirement() { MaxAge = 18 });
+    });
+
+    options.AddPolicy("AdminOnly", policy =>
+    {
+        policy.RequireClaim(ClaimTypes.Role, "admin");
+    });
+});
 
 var app = builder.Build();
 
