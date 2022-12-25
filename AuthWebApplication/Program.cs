@@ -13,50 +13,54 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddTransient<IAuthorizationHandler, AgeHandler>();
 builder.Services.AddTransient<IUserClaimGenerator, UserClaimGenerator>();
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<AppDbContext>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("AppDb"));
-});
-builder.Services.AddAuthentication().AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
-{
-    options.LoginPath = "/Home/SignUp";
-    options.LogoutPath = "/Home/SignOut";
-    options.AccessDeniedPath = "/Home/NoAccess";
-});
 
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("MaxAge18", policy =>
-    {
-        policy.Requirements.Add(new AgeRequirement() { MaxAge = 18 });
-    });
+builder.Configuration.AddIniFile("s.ini");
 
-    options.AddPolicy("AdminOnly", policy =>
-    {
-        policy.RequireClaim(ClaimTypes.Role, "admin");
-    });
-});
+Console.WriteLine(builder.Configuration.GetSection("Users").GetSection("Data").Value);
 
-var app = builder.Build();
+//builder.Services.AddAuthentication();
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-}
+//AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+//{
+//    options.LoginPath = "/Home/SignUp";
+//    options.LogoutPath = "/Home/SignOut";
+//    options.AccessDeniedPath = "/Home/NoAccess";
+//    options.ExpireTimeSpan = TimeSpan.FromDays(365);
+//});
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
+//builder.Services.AddAuthorization(options =>
+//{
+//    options.AddPolicy("MaxAge18", policy =>
+//    {
+//        policy.Requirements.Add(new AgeRequirement() { MaxAge = 18 });
+//    });
 
-app.UseRouting();
+//    options.AddPolicy("AdminOnly", policy =>
+//    {
+//        policy.RequireClaim(ClaimTypes.Role, "admin");
+//    });
+//});
 
-app.UseAuthentication();
-app.UseAuthorization();
+//var app = builder.Build();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+//// Configure the HTTP request pipeline.
+//if (!app.Environment.IsDevelopment())
+//{
+//    app.UseExceptionHandler("/Home/Error");
+//    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+//    app.UseHsts();
+//}
 
-app.Run();
+//app.UseHttpsRedirection();
+//app.UseStaticFiles();
+
+//app.UseRouting();
+
+//app.UseAuthentication();
+//app.UseAuthorization();
+
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+//app.Run();

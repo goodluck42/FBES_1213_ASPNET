@@ -1,0 +1,6 @@
+﻿@model List<Product>
+
+@foreach (var product in Model)
+{
+    <div>[<span>@product.Id</span>]: <span>@product.Name</span> (<span>@product.Quantity</span>)</div>
+}

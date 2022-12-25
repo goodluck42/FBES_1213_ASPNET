@@ -14,6 +14,7 @@ using System.Text;
 
 namespace AuthWebApplication.Controllers
 {
+    [Authorize(Policy = "AdminOnly")]
     public class HomeController : Controller
     {
         private readonly AppDbContext _dbContext;
