@@ -1,0 +1,14 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@model IdentityUser?
+
+@if (Model != null)
+{
+    <div>UserName: @Model.UserName</div>
+    <div>Email: @Model.Email</div>
+    <div>PasswordHash: @Model.PasswordHash</div>
+}
+else
+{
+    <div>Not signed in.</div>
+}
+
