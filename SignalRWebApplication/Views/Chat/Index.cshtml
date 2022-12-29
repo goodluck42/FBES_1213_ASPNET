@@ -1,0 +1,14 @@
+﻿@section Scripts
+{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.0/signalr.js" integrity="sha512-fSANdN8+nNTcjPP1LFFB7uc/B4lF/sSsr0Ak+QX7s4saNXza2aCaYkIKKMDpVV4KSoCMI+9W4KkRbVeUZgH+0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="~/js/index.js"></script>
+}
+
+@{
+    ViewData["Title"] = "Chat";
+}
+<div id="chat-wrapper">
+    <div id="chat"></div>
+    <input type="text" id="chat-message" placeholder="Your message..."/>
+    <input type="button" id="chat-message-send" value="Send message"/>
+</div>
