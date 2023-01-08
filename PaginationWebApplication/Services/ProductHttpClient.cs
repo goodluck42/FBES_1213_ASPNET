@@ -1,4 +1,7 @@
-﻿namespace PaginationWebApplication.Services
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace PaginationWebApplication.Services
 {
     public class ProductHttpClient
     {
@@ -21,10 +24,11 @@
             {
                 return null;
             }
+
             return result.Count / c_ProductCountInOnePage + 1;
         }
 
-        public async Task<List<Product>?> GetProductsAsync()
+        public virtual async Task<List<Product>?> GetProductsAsync()
         {
             var result = await _httpClient.GetAsync($"{_domain}/api/v1/product/all");
 
