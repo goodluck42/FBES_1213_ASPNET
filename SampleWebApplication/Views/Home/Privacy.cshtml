@@ -1,0 +1,21 @@
+﻿@model PrivacyViewModel
+
+
+@{
+    ViewData["Title"] = "Privacy Policy";
+}
+
+<div>User.Id = @Model.User.Id</div>
+<div>User.FirstName = @Model.User.FirstName</div>
+<h1></h1>
+
+
+@using (@Html.BeginForm())
+{
+    @Html.TextBoxFor(vm => vm.Homework.Data);
+    @Html.HiddenFor(vm => vm.User.Id);
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>Use this page to detail your site's privacy policy.</p>
