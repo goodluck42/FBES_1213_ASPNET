@@ -4,6 +4,7 @@ using DTOMappingWebApplication.Data;
 using DTOMappingWebApplication.DTO;
 using DTOMappingWebApplication.Entities;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
