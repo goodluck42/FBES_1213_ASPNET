@@ -3,11 +3,29 @@
 using MongoDbWebApplication.RouteConstraints;
 
 var builder = WebApplication.CreateBuilder(args);
+var VadimPolicy = "__VadimPolicy__";
 
 builder.Services.Configure<RouteOptions>(options =>
 {
     options.LowercaseUrls = true;
     options.ConstraintMap.Add("objectid", typeof(ObjectIdRouteConstraint));
+});
+
+builder.Services.AddCors(config =>
+{
+    config.AddPolicy(VadimPolicy, policy =>
+    {
+        //policy.WithOrigins("https://www.google.com/").AllowAnyHeader().AllowAnyMethod();
+        // Same-Origin
+        // https://www.google.com/
+        // NOT SAME ORIGIN
+        // http://www.google.com/
+        // https://accounts.google.com/
+        // https://accounts.google.net/
+        // https://accounts.google.net:334
+
+        policy.WithOrigins("https://www.google.com").AllowAnyHeader().WithMethods(HttpMethods.Get);
+    });
 });
 
 // Add services to the container.
@@ -27,6 +45,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors();
 
 app.UseAuthorization();
 

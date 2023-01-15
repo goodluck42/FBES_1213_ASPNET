@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 using MongoDB.Bson;
@@ -11,6 +13,7 @@ namespace MongoDbWebApplication.Controllers
     
     [ApiController]
     [Route("api/user")]
+    [EnableCors("__VadimPolicy__")]
     public class UserController : ControllerBase
     {
         private readonly MongoClient _mongoClient;
