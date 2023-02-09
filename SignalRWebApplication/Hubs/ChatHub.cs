@@ -14,6 +14,8 @@ namespace SignalRWebApplication.Hubs
         {
             await Clients.All.SendAsync("ReceiveMessage", message);
             _chatHistory.AddToHistory(message);
+
+            Console.WriteLine(this.Context.ConnectionId);
         }
 
         public async Task GetHistory()

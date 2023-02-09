@@ -18,49 +18,49 @@ builder.Configuration.AddIniFile("s.ini");
 
 Console.WriteLine(builder.Configuration.GetSection("Users").GetSection("Data").Value);
 
-//builder.Services.AddAuthentication();
+builder.Services.AddAuthentication().
 
-//AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
-//{
-//    options.LoginPath = "/Home/SignUp";
-//    options.LogoutPath = "/Home/SignOut";
-//    options.AccessDeniedPath = "/Home/NoAccess";
-//    options.ExpireTimeSpan = TimeSpan.FromDays(365);
-//});
+AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+{
+    options.LoginPath = "/Home/SignUp";
+    options.LogoutPath = "/Home/SignOut";
+    options.AccessDeniedPath = "/Home/NoAccess";
+    options.ExpireTimeSpan = TimeSpan.FromDays(365);
+});
 
-//builder.Services.AddAuthorization(options =>
-//{
-//    options.AddPolicy("MaxAge18", policy =>
-//    {
-//        policy.Requirements.Add(new AgeRequirement() { MaxAge = 18 });
-//    });
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("MaxAge18", policy =>
+    {
+        policy.Requirements.Add(new AgeRequirement() { MaxAge = 18 });
+    });
 
-//    options.AddPolicy("AdminOnly", policy =>
-//    {
-//        policy.RequireClaim(ClaimTypes.Role, "admin");
-//    });
-//});
+    options.AddPolicy("AdminOnly", policy =>
+    {
+        policy.RequireClaim(ClaimTypes.Role, "admin");
+    });
+});
 
-//var app = builder.Build();
+var app = builder.Build();
 
-//// Configure the HTTP request pipeline.
-//if (!app.Environment.IsDevelopment())
-//{
-//    app.UseExceptionHandler("/Home/Error");
-//    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-//    app.UseHsts();
-//}
+// Configure the HTTP request pipeline.
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Home/Error");
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
+}
 
-//app.UseHttpsRedirection();
-//app.UseStaticFiles();
+app.UseHttpsRedirection();
+app.UseStaticFiles();
 
-//app.UseRouting();
+app.UseRouting();
 
-//app.UseAuthentication();
-//app.UseAuthorization();
+app.UseAuthentication();
+app.UseAuthorization();
 
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
-//app.Run();
+app.Run();

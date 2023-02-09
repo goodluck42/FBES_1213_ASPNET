@@ -18,11 +18,13 @@ builder.Services.AddCors(config =>
         //policy.WithOrigins("https://www.google.com/").AllowAnyHeader().AllowAnyMethod();
         // Same-Origin
         // https://www.google.com/
+
+
         // NOT SAME ORIGIN
         // http://www.google.com/
         // https://accounts.google.com/
-        // https://accounts.google.net/
-        // https://accounts.google.net:334
+        // https://www.google.net/
+        // https://www.google.com:334
 
         policy.WithOrigins("https://www.google.com").AllowAnyHeader().WithMethods(HttpMethods.Get);
     });
